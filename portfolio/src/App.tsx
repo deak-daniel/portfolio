@@ -212,7 +212,7 @@ export default function App() {
             I specialize in building reliable, AI-integrated financial systems and management platforms using the modern .NET and React ecosystems.
           </span>
           <div className='flex-grow-1'>
-            <img src='./src/assets/profilePic.jpg' alt='Profile' className='rounded-full w-68 h-68 object-cover border border-slate-700' />
+            <img src='profilePic.jpg' alt='Profile' className='rounded-full w-68 h-68 object-cover border border-slate-700' />
           </div>
         </section>
 
