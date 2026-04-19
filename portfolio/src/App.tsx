@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import {  useEffect, useState } from 'react';
 import './App.css'
 import Navbar from './components/Navbar'
 import { X, Mail, Download, Menu } from 'lucide-react';
@@ -6,6 +6,7 @@ import LinkedinLogo from './components/LinkedinLogo';
 import GithubLogo from './components/GithubLogo';
 import InteractiveGrid from './components/InteractiveGrid';
 import Game from './components/Game';
+import useSnackBar from './hooks/useSnackBar';
 
 type ProjectType = {
   name: string;
@@ -30,19 +31,19 @@ const projects: ProjectType[] = [
     technolgies: ['C#', 'ASP.NET Core', 'React', 'TypeScript', 'Tailwind', 'SQLite']
   },
   {
-    name: 'CrosshairSelector',
-    description: 'This is a crosshair application meant to help gamers achieve precise aiming for free.',
-    technolgies: ['C#', 'WPF', 'Design Patterns']
+    name: 'TextEditor',
+    description: 'A simple text editor application built with modern web technologies. Supports syntax highlighting in C#, XML and SQL.',
+    technolgies: ['C#', 'Blazor', 'Tailwind CSS', 'WPF', 'Design Patterns']
   },
   {
-    name: 'CrosshairSelector',
-    description: 'This is a crosshair application meant to help gamers achieve precise aiming for free.',
-    technolgies: ['C#', 'WPF', 'Design Patterns']
+    name: 'BidWise',
+    description: 'A quotation management system for railway companies, designed to streamline the process of creating and managing shipment bids. It allows users to create detailed project estimates, track costs, and generate professional bid proposals.',
+    technolgies: ['Python', 'FastAPI', 'REST', 'SQLAlchemy', 'SQLite']
   },
   {
-    name: 'CrosshairSelector',
-    description: 'This is a crosshair application meant to help gamers achieve precise aiming for free.',
-    technolgies: ['C#', 'WPF', 'Design Patterns']
+    name: 'Naive Bayes Classifier',
+    description: 'A machine learning implementation of the Naive Bayes algorithm for classification tasks.',
+    technolgies: ['C#', 'Design Patterns', 'AI & ML']
   },
 ];
 
@@ -98,23 +99,37 @@ const skills: Skill[] = [
 ]
 
 
+const PUBLIC_KEY = import.meta.env.VITE_EMAIL_SERVICE_PUBLIC_KEY;
+const TEMPLATE_KEY = import.meta.env.VITE_EMAIL_TEMPLATE_KEY;
+const SERVICE_KEY = import.meta.env.VITE_EMAIL_SERVICE_KEY;
+
 export default function App() {
   const [isSidebarOpen, setSidebarOpen] = useState<boolean>(false);
   const [innerWidth, setInnerWidth] = useState<number>(window.innerWidth);
   const [isNavbarFloating, setNavbarFloating] = useState<boolean>(false);
+  const { snackbarMessage, showSnackBar } = useSnackBar();
+  
+  useEffect(() => {
+    emailjs.init(PUBLIC_KEY);
+    window.onload = function() {
+        document.getElementById('contact-form')?.addEventListener('submit', function(event) {
+            event.preventDefault();
+            emailjs.sendForm(SERVICE_KEY, TEMPLATE_KEY, this)
+                .then(() => {
+                  showSnackBar('Thank you for your message!', 3000);
+                }, (error) => {
+                  showSnackBar('Failed to send message. Please try again later.', 3000);
+                });
+        });
+    }
 
-  // useEffect(() => {
-  //   emailjs.init({
-  //     publicKey: import.meta.env.VITE_EMAIL_SERVICE_PUBLIC_KEY,
-  //   });
-  // }, []);
+  }, []);
 
   window.addEventListener('resize', () => {
     if (window.innerWidth >= 768) {
       setSidebarOpen(false);
     }
     setInnerWidth(window.innerWidth);
-    console.log(innerWidth);
   });
 
   window.addEventListener('scroll', () => {
@@ -141,6 +156,7 @@ export default function App() {
       <div className='flex flex-row relative justify-center'>
         {innerWidth >= 768 && <Navbar isFloating={isNavbarFloating} />}
       </div>
+      {snackbarMessage && <div className='fixed bottom-10 right-10 p-4 bg-green-600 border border-slate-700 text-white rounded-lg z-50'>{snackbarMessage}</div>}
       <main className='flex flex-col gap-24 mt-8 lg:w-[50%] md:w-[70%] w-[90%] m-auto min-h-screen'>
         {isSidebarOpen && (
           <div className='fixed inset-0 bg-black/50 z-40' onClick={() => setSidebarOpen(false)}></div>
@@ -170,7 +186,7 @@ export default function App() {
             <span className='font-mali font-[400] text-[24px] tracking-[10%]'>I’m a Senior Full-Stack Engineer.</span>
             <span className='font-mali font-[400] text-[20px] tracking-[10%]'>I specialize in React, Blazor, and SQL Server, with a focus on building high-performance systems using C#, TypeScript, Tailwind CSS, and Bootstrap.</span>
             <div className='flex flex-row gap-4'>
-              <a className='flex flex-row gap-2 font-[400] items-center px-6 py-3 border border-slate-700 rounded-lg hover:scale-105 transition-all z-10 bg-black text-white' href='./src/assets/cv.pdf' download>
+              <a className='flex flex-row gap-2 font-[400] items-center px-6 py-3 border border-slate-700 rounded-lg hover:scale-105 transition-all z-10 bg-black text-white' href='./src/assets/Daniel_Deak_CV.pdf' download>
                 <Download size={20} />
                 Download CV
               </a>
@@ -181,7 +197,7 @@ export default function App() {
             </div>
           </section>
           {(innerWidth >= 768 && innerWidth > 1024) && (
-            <div className='flex justify-center'>
+            <div className='flex justify-center w-full'>
               <Game />
             </div>
           )}
@@ -263,7 +279,7 @@ export default function App() {
               </div>
             </div>
           </div>
-          <form id='contact-form'>
+          <form id='contact-form' method='post'>
             <div className='flex flex-col gap-4'>
               <label htmlFor='name' className='font-bold'>Name</label>
               <input type='text' id='name' placeholder='Name' name='name' className='p-3 rounded-lg bg-gray-700/50 border border-slate-700 focus:outline-none focus:ring-2 focus:ring-sky-500 transition-all' />
