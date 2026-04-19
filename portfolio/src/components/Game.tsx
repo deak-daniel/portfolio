@@ -291,7 +291,7 @@ export default function Game() {
 
             {isGameRunning === null && (
                 <div className='absolute z-20 flex flex-col gap-4'>
-                    <select defaultValue="normal" className='bg-transparent border border-white px-4 py-2 text-white text-lg rounded-md' onInput={(e) => setDifficultySettings(e.target.value)}>
+                    <select defaultValue="normal" className='bg-transparent border border-white px-4 py-2 text-white text-lg rounded-md' onInput={(e) => setDifficultySettings(e.currentTarget.value)}>
                         <option className='text-white bg-black' value="easy">Easy</option>
                         <option className='text-white bg-black' value="normal">Normal</option>
                         <option className='text-white bg-black' value="hard">Hard</option>

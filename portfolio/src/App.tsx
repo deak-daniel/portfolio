@@ -1,4 +1,4 @@
-import {  useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css'
 import Navbar from './components/Navbar'
 import { X, Mail, Download, Menu } from 'lucide-react';
@@ -7,6 +7,7 @@ import GithubLogo from './components/GithubLogo';
 import InteractiveGrid from './components/InteractiveGrid';
 import Game from './components/Game';
 import useSnackBar from './hooks/useSnackBar';
+import emailjs from '@emailjs/browser';
 
 type ProjectType = {
   name: string;
@@ -108,22 +109,21 @@ export default function App() {
   const [innerWidth, setInnerWidth] = useState<number>(window.innerWidth);
   const [isNavbarFloating, setNavbarFloating] = useState<boolean>(false);
   const { snackbarMessage, showSnackBar } = useSnackBar();
-  
+
   useEffect(() => {
     emailjs.init(PUBLIC_KEY);
-    window.onload = function() {
-        document.getElementById('contact-form')?.addEventListener('submit', function(event) {
-            event.preventDefault();
-            emailjs.sendForm(SERVICE_KEY, TEMPLATE_KEY, this)
-                .then(() => {
-                  showSnackBar('Thank you for your message!', 3000);
-                }, (error) => {
-                  showSnackBar('Failed to send message. Please try again later.', 3000);
-                });
-        });
-    }
-
   }, []);
+
+  function sendEmail(e: React.SubmitEvent<HTMLFormElement>) {
+    e.preventDefault();
+    emailjs.sendForm(SERVICE_KEY, TEMPLATE_KEY, e.target)
+      .then(() => {
+        showSnackBar('Thank you for your message!', 3000);
+      }, (error: unknown) => {
+        showSnackBar('Failed to send message. Please try again later.', 3000);
+        return error;
+      });
+  }
 
   window.addEventListener('resize', () => {
     if (window.innerWidth >= 768) {
@@ -279,14 +279,14 @@ export default function App() {
               </div>
             </div>
           </div>
-          <form id='contact-form' method='post'>
+          <form method='post' onSubmit={(e) => sendEmail(e)}>
             <div className='flex flex-col gap-4'>
               <label htmlFor='name' className='font-bold'>Name</label>
               <input type='text' id='name' placeholder='Name' name='name' className='p-3 rounded-lg bg-gray-700/50 border border-slate-700 focus:outline-none focus:ring-2 focus:ring-sky-500 transition-all' />
 
               <label htmlFor='email' className='font-bold'>Email</label>
               <input type='email' id='email' name='email' placeholder='Email' className='p-3 rounded-lg bg-gray-700/50 border border-slate-700 focus:outline-none focus:ring-2 focus:ring-sky-500 transition-all' />
-              
+
               <label htmlFor='title' className='font-bold'>Title</label>
               <input type='text' name='title' id='title' placeholder='Title' className='p-3 rounded-lg bg-gray-700/50 border border-slate-700 focus:outline-none focus:ring-2 focus:ring-sky-500 transition-all' />
 
