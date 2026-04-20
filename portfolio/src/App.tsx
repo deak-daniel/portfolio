@@ -202,7 +202,7 @@ export default function App() {
             <span className='font-mali font-[400] text-[24px] tracking-[10%]'>I’m a Senior Full-Stack Engineer.</span>
             <span className='font-mali font-[400] text-[20px] tracking-[10%]'>I specialize in React, Blazor, and .NET, with a focus on building high-performance systems using C#, TypeScript, Tailwind CSS, and Bootstrap.</span>
             <div className='flex flex-row gap-4'>
-              <a className='flex flex-row gap-2 font-[400] items-center px-6 py-3 border border-slate-700 rounded-lg hover:scale-105 transition-all z-10 bg-black text-white' href='Daniel_Deak_CV.pdf' download>
+              <a className='flex flex-row gap-2 font-[400] items-center px-6 py-3 border border-slate-700 rounded-lg hover:scale-105 transition-all z-10 bg-black text-white' href='Daniel-Deak-CV.pdf' download>
                 <Download size={20} />
                 Download CV
               </a>
