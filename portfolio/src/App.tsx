@@ -58,27 +58,27 @@ const projects: ProjectType[] = [
 const skills: Skill[] = [
   {
     name: 'React',
-    description: 'The state of the art frontend framework, used for building dynamic and responsive user interfaces. I have extensive experience with React, including hooks, context API, and performance optimization techniques.'
+    description: 'I have a deep understanding of React, it\'s different hooks like useState, useEffect, useRef, and state management system like Context, and reducer.'
   },
   {
     name: 'C#',
-    description: 'A modern, object-oriented programming language developed by Microsoft. I have extensive experience with C#, including ASP.NET Core and WPF development.'
+    description: 'I\'m a skilled C# and .NET developer, I have worked on backend systems with ASP.Net Core, embedded systems in .NET Core, and desktop applications using WPF, and WebView.'
   },
   {
     name: 'Tailwind CSS',
-    description: 'A utility-first CSS framework that allows for rapid UI development. I have extensive experience with Tailwind CSS, including customizing themes and implementing responsive designs.'
+    description: 'I know the ins and outs of Tailwind, I use it with every project I start, as it is the best utility for clean and professional designs.'
   },
   {
     name: 'ASP.NET Core Web Api',
-    description: 'A cross-platform, high-performance framework for building modern, cloud-enabled web applications. I have extensive experience with ASP.NET Core Web API, including designing RESTful APIs and implementing authentication and authorization.'
+    description: 'I have extensive knowledge of ASP.NET Core Web Apis specifically in a RESTful architecture, using JWTs, cookies, and Entity Framework Core.'
   },
   {
     name: 'Blazor WASM',
-    description: 'A framework for building interactive web applications using C# instead of JavaScript. I have extensive experience with Blazor WASM, including creating reusable components and managing state.'
+    description: 'I worked with Blazor WASM a lot, specifically how components interact with eachother, their lifecycles. I also used SignalR for real-time data updates.'
   },
   {
     name: 'Python',
-    description: 'A high-level, interpreted programming language known for its simplicity and readability. I have extensive experience with Python, including web development, data analysis, and automation.'
+    description: 'I used Python in lots of my projects, for AI and ML tasks (with tensorflow), and also as a backend service, with FastApi.'
   },
   {
     name: 'AI & ML',
@@ -93,16 +93,12 @@ const skills: Skill[] = [
     description: 'Experience with common software design patterns and architectural principles. I have applied these patterns to create maintainable and scalable applications.'
   },
   {
-    name: '.NET',
-    description: 'Experience with the .NET framework for building modern, cloud-enabled web applications. I have extensive experience with ASP.NET Core and Entity Framework.'
-  },
-  {
-    name: 'Blazor Server',
-    description: 'Experience with Blazor Server for building interactive web applications using C# instead of JavaScript. I have extensive experience with creating reusable components and managing state.'
+    name: 'Entity Framework Core',
+    description: 'I used EF Core (and EF) in many of my projects, I\'m experienced in handling migrations, optimizing queries, and sanitizing data.'
   },
   {
     name: 'C# WPF',
-    description: 'Experience with Windows Presentation Foundation (WPF) for building desktop applications using C#. I have extensive experience with WPF development, including XAML, data binding, and MVVM pattern.'
+    description: ' I\'m an experienced Windows Presentation Foundation (WPF) engineer. I used it for building desktop applications using C#. I used Data Binding, the MVVM Pattern, and design patterns.'
   },
 ]
 
