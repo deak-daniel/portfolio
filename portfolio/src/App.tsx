@@ -8,11 +8,13 @@ import InteractiveGrid from './components/InteractiveGrid';
 import Game from './components/Game';
 import useSnackBar from './hooks/useSnackBar';
 import emailjs from '@emailjs/browser';
+import { Dialog, type DialogContent } from './components/Dialog';
 
 type ProjectType = {
   name: string;
   description: string;
   technolgies: string[];
+  dialogDataId: string;
 }
 
 type Skill = {
@@ -24,27 +26,32 @@ const projects: ProjectType[] = [
   {
     name: 'CrosshairSelector',
     description: 'This is a crosshair application meant to help gamers achieve precise aiming for free.',
-    technolgies: ['C#', 'WPF', 'Design Patterns']
+    technolgies: ['C#', 'WPF', 'Design Patterns'],
+    dialogDataId: '1'
   },
   {
     name: 'Yunikey',
     description: 'A webshop where we sell the best custom keycap sets made from premium, double-shot PBT plastic.',
-    technolgies: ['C#', 'ASP.NET Core', 'React', 'TypeScript', 'Tailwind', 'SQLite']
+    technolgies: ['C#', 'ASP.NET Core', 'React', 'TypeScript', 'Tailwind', 'SQLite'],
+    dialogDataId: '2'
   },
   {
     name: 'TextEditor',
     description: 'A simple text editor application built with modern web technologies. Supports syntax highlighting in C#, XML and SQL.',
-    technolgies: ['C#', 'Blazor', 'Tailwind CSS', 'WPF', 'Design Patterns']
+    technolgies: ['C#', 'Blazor', 'Tailwind CSS', 'WPF', 'Design Patterns'],
+    dialogDataId: '3'
   },
   {
     name: 'BidWise',
     description: 'A quotation management system for railway companies, designed to streamline the process of creating and managing shipment bids. It allows users to create detailed project estimates, track costs, and generate professional bid proposals.',
-    technolgies: ['Python', 'FastAPI', 'REST', 'SQLAlchemy', 'SQLite']
+    technolgies: ['Python', 'FastAPI', 'REST', 'SQLAlchemy', 'SQLite'],
+    dialogDataId: '4'
   },
   {
     name: 'Naive Bayes Classifier',
     description: 'A machine learning implementation of the Naive Bayes algorithm for classification tasks.',
-    technolgies: ['C#', 'Design Patterns', 'AI & ML']
+    technolgies: ['C#', 'Design Patterns', 'AI & ML'],
+    dialogDataId: '5'
   },
 ];
 
@@ -99,6 +106,13 @@ const skills: Skill[] = [
   },
 ]
 
+const dialogContent: Record<string, DialogContent> = {
+  "1": { title: 'CrosshairSelector', content: 'A desktop application written in C# and WPF to take advantage of  mature, and stable .NET Desktop App development technologies. This application provides a clean, modern and sleek design so the users can easily create their own custom crosshair\'s to enhance their natural aiming capabilities. I created this application as my first real-world, usable project, and it is set to release to the public very soon. It supports 5 different shapes, multiple crosshairs, switching between the crosshairs with your keyboard, mouse, and Xbox controller.' },
+  "2": { title: 'Yunikey', content: 'This project is a full e-commerce platform, where we sell unique, high-quality and cozy keycap sets (currently only in ISO layout). The keycaps are made out of premium double-shot PBT material, to ensure the best typing experience for any user. The webshop\'s backend is written in ASP.Net Core, using Minimal APIs, with a REST based architecture, providing great performance, with very little memory usage. The frontend is written in React, for the best user experience, and the database is SQLite, because of memory limitations on the VPS.' },
+  "3": { title: 'Texteditor', content: 'Written in C# using WPF, and Blazor WebView for an easy solution of the syntax highlighting. It supports C#, XML, and SQL for now, and it uses design patterns and principles, for a clean, decoupled and extensible codebase.', githubLink: 'https://github.com/deak-daniel/texteditor' },
+  "4": { title: 'BidWise', content: 'A project which started out as a simple click-to-quote app, but it grew into a system that can handle any type of rail-cargo requests, as long as the administrator configures them. Based on the user\'s requirements the application finds the best fitting shipment route, with the given cost, and then provides the details in a clean and easy-to-understand format. The project\'s backend is written in Python using FastAPI, it uses a RESTful protocol to communicate with the frontend, which is a streamlit project.', githubLink: 'https://github.com/deak-daniel/BidWise' },
+  "5": { title: 'Naive Bayes Classifier', content: 'The simplest, yet one of the best machine learning algorithms, which is based on pure and simple maths. I implemented this project using C# to deepen my understanding of the machine leraning model.', githubLink: 'https://github.com/deak-daniel/Naive_Bayes_Classifier' },
+}
 
 const PUBLIC_KEY = import.meta.env.VITE_EMAIL_SERVICE_PUBLIC_KEY;
 const TEMPLATE_KEY = import.meta.env.VITE_EMAIL_TEMPLATE_KEY;
@@ -109,6 +123,7 @@ export default function App() {
   const [innerWidth, setInnerWidth] = useState<number>(window.innerWidth);
   const [isNavbarFloating, setNavbarFloating] = useState<boolean>(false);
   const { snackbarMessage, showSnackBar } = useSnackBar();
+  const [activeDialog, setActiveDialog] = useState<string | null>(null);
 
   useEffect(() => {
     emailjs.init(PUBLIC_KEY);
@@ -140,6 +155,10 @@ export default function App() {
     }
   });
 
+  useEffect(() => {
+    console.log(dialogContent)
+  }, []);
+
   return (
     <>
       {/* <div className='fixed inset-0 -z-10 bg-spotlight'></div> */}
@@ -157,6 +176,7 @@ export default function App() {
         {innerWidth >= 768 && <Navbar isFloating={isNavbarFloating} />}
       </div>
       {snackbarMessage && <div className='fixed bottom-10 right-10 p-4 bg-green-600 border border-slate-700 text-white rounded-lg z-50'>{snackbarMessage}</div>}
+      {activeDialog && <Dialog dialogProps={dialogContent[activeDialog]} onClose={() => setActiveDialog(null)} />}
       <main className='flex flex-col gap-24 mt-8 lg:w-[50%] md:w-[70%] w-[90%] m-auto min-h-screen'>
         {isSidebarOpen && (
           <div className='fixed inset-0 bg-black/50 z-40' onClick={() => setSidebarOpen(false)}></div>
@@ -184,9 +204,9 @@ export default function App() {
             </div>
             <span className='font-moul text-[40px] tracking-[10%]'>Hi, I'm Daniel.</span>
             <span className='font-mali font-[400] text-[24px] tracking-[10%]'>I’m a Senior Full-Stack Engineer.</span>
-            <span className='font-mali font-[400] text-[20px] tracking-[10%]'>I specialize in React, Blazor, and SQL Server, with a focus on building high-performance systems using C#, TypeScript, Tailwind CSS, and Bootstrap.</span>
+            <span className='font-mali font-[400] text-[20px] tracking-[10%]'>I specialize in React, Blazor, and .NET, with a focus on building high-performance systems using C#, TypeScript, Tailwind CSS, and Bootstrap.</span>
             <div className='flex flex-row gap-4'>
-              <a className='flex flex-row gap-2 font-[400] items-center px-6 py-3 border border-slate-700 rounded-lg hover:scale-105 transition-all z-10 bg-black text-white' href='./src/assets/Daniel_Deak_CV.pdf' download>
+              <a className='flex flex-row gap-2 font-[400] items-center px-6 py-3 border border-slate-700 rounded-lg hover:scale-105 transition-all z-10 bg-black text-white' href='Daniel_Deak_CV.pdf' download>
                 <Download size={20} />
                 Download CV
               </a>
@@ -220,7 +240,8 @@ export default function App() {
 
         <section className='grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 text-left z-10 gap-6'>
           {projects.map(project => (
-            <div className='flex flex-col border border-slate-700 p-8 gap-4 bg-[#0b1121] rounded-xl hover:border-sky-500 hover:scale-99 transition-all w-auto'>
+            <div className='flex flex-col border border-slate-700 p-8 gap-4 bg-[#0b1121] rounded-xl hover:border-sky-500 hover:scale-99 transition-all w-auto hover:cursor-pointer z-20'
+              onClick={() => setActiveDialog(project.dialogDataId)}>
               <span className='font-bold'>{project.name}</span>
               <span className='text-gray-400 text-wrap grow-1'>{project.description}</span>
               <div className='flex flex-row flex-wrap gap-2'>
