@@ -24,34 +24,40 @@ type Skill = {
 
 const projects: ProjectType[] = [
   {
+    name: 'UtilityFolder',
+    description: 'This is a collection of free tools with an electrical focus',
+    technolgies: ['Next.js', 'React', 'Tailwind CSS'],
+    dialogDataId: '1'
+  },
+  {
     name: 'CrosshairSelector',
     description: 'This is a crosshair application meant to help gamers achieve precise aiming for free.',
     technolgies: ['C#', 'WPF', 'Design Patterns'],
-    dialogDataId: '1'
+    dialogDataId: '2'
   },
   {
     name: 'Yunikey',
     description: 'A webshop where we sell the best custom keycap sets made from premium, double-shot PBT plastic.',
     technolgies: ['C#', 'ASP.NET Core', 'React', 'TypeScript', 'Tailwind', 'SQLite'],
-    dialogDataId: '2'
+    dialogDataId: '3'
   },
   {
     name: 'TextEditor',
     description: 'A simple text editor application built with modern web technologies. Supports syntax highlighting in C#, XML and SQL.',
     technolgies: ['C#', 'Blazor', 'Tailwind CSS', 'WPF', 'Design Patterns'],
-    dialogDataId: '3'
+    dialogDataId: '4'
   },
   {
     name: 'BidWise',
     description: 'A quotation management system for railway companies, designed to streamline the process of creating and managing shipment bids. It allows users to create detailed project estimates, track costs, and generate professional bid proposals.',
     technolgies: ['Python', 'FastAPI', 'REST', 'SQLAlchemy', 'SQLite'],
-    dialogDataId: '4'
+    dialogDataId: '5'
   },
   {
     name: 'Naive Bayes Classifier',
     description: 'A machine learning implementation of the Naive Bayes algorithm for classification tasks.',
     technolgies: ['C#', 'Design Patterns', 'AI & ML'],
-    dialogDataId: '5'
+    dialogDataId: '6'
   },
 ];
 
@@ -103,11 +109,12 @@ const skills: Skill[] = [
 ]
 
 const dialogContent: Record<string, DialogContent> = {
-  "1": { title: 'CrosshairSelector', content: 'A desktop application written in C# and WPF to take advantage of  mature, and stable .NET Desktop App development technologies. This application provides a clean, modern and sleek design so the users can easily create their own custom crosshair\'s to enhance their natural aiming capabilities. I created this application as my first real-world, usable project, and it is set to release to the public very soon. It supports 5 different shapes, multiple crosshairs, switching between the crosshairs with your keyboard, mouse, and Xbox controller.' },
-  "2": { title: 'Yunikey', content: 'This project is a full e-commerce platform, where we sell unique, high-quality and cozy keycap sets (currently only in ISO layout). The keycaps are made out of premium double-shot PBT material, to ensure the best typing experience for any user. The webshop\'s backend is written in ASP.Net Core, using Minimal APIs, with a REST based architecture, providing great performance, with very little memory usage. The frontend is written in React, for the best user experience, and the database is SQLite, because of memory limitations on the VPS.' },
-  "3": { title: 'Texteditor', content: 'Written in C# using WPF, and Blazor WebView for an easy solution of the syntax highlighting. It supports C#, XML, and SQL for now, and it uses design patterns and principles, for a clean, decoupled and extensible codebase.', githubLink: 'https://github.com/deak-daniel/texteditor' },
-  "4": { title: 'BidWise', content: 'A project which started out as a simple click-to-quote app, but it grew into a system that can handle any type of rail-cargo requests, as long as the administrator configures them. Based on the user\'s requirements the application finds the best fitting shipment route, with the given cost, and then provides the details in a clean and easy-to-understand format. The project\'s backend is written in Python using FastAPI, it uses a RESTful protocol to communicate with the frontend, which is a streamlit project.', githubLink: 'https://github.com/deak-daniel/BidWise' },
-  "5": { title: 'Naive Bayes Classifier', content: 'The simplest, yet one of the best machine learning algorithms, which is based on pure and simple maths. I implemented this project using C# to deepen my understanding of the machine leraning model.', githubLink: 'https://github.com/deak-daniel/Naive_Bayes_Classifier' },
+  "1": { title: "UtilityFolder", content: "A lightning-fast, Next.js-based suite of client-side calculator tools for sizing solar and off-grid systems, featuring a strong SEO focus and Tailwind CSS design.", githubLink: "https://utilityfolder.com" },
+  "2": { title: 'CrosshairSelector', content: 'A desktop application written in C# and WPF to take advantage of  mature, and stable .NET Desktop App development technologies. This application provides a clean, modern and sleek design so the users can easily create their own custom crosshair\'s to enhance their natural aiming capabilities. I created this application as my first real-world, usable project, and it is set to release to the public very soon. It supports 5 different shapes, multiple crosshairs, switching between the crosshairs with your keyboard, mouse, and Xbox controller.' },
+  "3": { title: 'Yunikey', content: 'This project is a full e-commerce platform, where we sell unique, high-quality and cozy keycap sets (currently only in ISO layout). The keycaps are made out of premium double-shot PBT material, to ensure the best typing experience for any user. The webshop\'s backend is written in ASP.Net Core, using Minimal APIs, with a REST based architecture, providing great performance, with very little memory usage. The frontend is written in React, for the best user experience, and the database is SQLite, because of memory limitations on the VPS.' },
+  "4": { title: 'Texteditor', content: 'Written in C# using WPF, and Blazor WebView for an easy solution of the syntax highlighting. It supports C#, XML, and SQL for now, and it uses design patterns and principles, for a clean, decoupled and extensible codebase.', githubLink: 'https://github.com/deak-daniel/texteditor' },
+  "5": { title: 'BidWise', content: 'A project which started out as a simple click-to-quote app, but it grew into a system that can handle any type of rail-cargo requests, as long as the administrator configures them. Based on the user\'s requirements the application finds the best fitting shipment route, with the given cost, and then provides the details in a clean and easy-to-understand format. The project\'s backend is written in Python using FastAPI, it uses a RESTful protocol to communicate with the frontend, which is a streamlit project.', githubLink: 'https://github.com/deak-daniel/BidWise' },
+  "6": { title: 'Naive Bayes Classifier', content: 'The simplest, yet one of the best machine learning algorithms, which is based on pure and simple maths. I implemented this project using C# to deepen my understanding of the machine leraning model.', githubLink: 'https://github.com/deak-daniel/Naive_Bayes_Classifier' },
 }
 
 const PUBLIC_KEY = import.meta.env.VITE_EMAIL_SERVICE_PUBLIC_KEY;
@@ -223,9 +230,12 @@ export default function App() {
 
         <section className='grid md:grid-cols-1 lg:grid-cols-2 grid-cols-1 text-left z-10 gap-6 place-items-center'>
           <span className='font-mali font-[400] text-[20px] tracking-[10%]'>
-            I am a Senior Full-Stack Engineer with over 4 years of professional experience, currently completing a BSc in Computer Science (Minor in AI & Data Science).
-            My background spans from low-level Embedded Systems at Knorr-Bremse to high-level enterprise web architecture.
-            I specialize in building reliable, AI-integrated financial systems and management platforms using the modern .NET and React ecosystems.
+            Full-Stack Software Engineer with 4+ years of experience across the .NET ecosystem and modern React
+            frontends. I have shipped production systems in demanding environments, from a real-time AI financial
+            platform to safety-critical automotive test frameworks, and I am comfortable owning features end to end, from
+            API and database design to clean, responsive user interfaces. Currently completing a BSc in Computer
+            Science with a minor in AI and Data Science, expected in 2027. EU citizen, available to relocate within the
+            EU/Schengen Area and start by September 2026.
           </span>
           <div className='flex-grow-1'>
             <img src='profilePic.jpg' alt='Profile' className='rounded-full w-68 h-68 object-cover border border-slate-700' />
